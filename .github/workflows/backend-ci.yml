@@ -1,0 +1,61 @@
+name: Backend CI
+run-name: NestJS CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "belindas-closet-nestjs/**"
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "belindas-closet-nestjs/**"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x] # Originally had [18.x, 20.x] but we'll use just 18.x for NestJS
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Clean install
+        run: npm ci
+        working-directory: ./belindas-closet-nestjs
+      - name: Run linter
+        run: npm run lint
+        working-directory: ./belindas-closet-nestjs
+      - name: Compile typescript
+        run: npm run compile
+        working-directory: ./belindas-closet-nestjs
+      # - name: Jest e2e tests
+      #   run: npm run test:e2e
+      #   working-directory: ./belindas-closet-nestjs
+      - name: Test coverage
+        run: npm run test:cov || npm run test:coverage
+        working-directory: ./belindas-closet-nestjs
+      - name: Build App
+        run: npm run build --if-present
+        working-directory: ./belindas-closet-nestjs
+
+      # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+      - name: Archive NestJS build
+        uses: actions/upload-artifact@v4
+        with:
+          name: nestjs-build
+          path: belindas-closet-nestjs/dist/
+          retention-days: 14
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: nestjs-code-coverage-report
+          path: belindas-closet-nestjs/coverage/lcov-report/index.html
+          retention-days: 14

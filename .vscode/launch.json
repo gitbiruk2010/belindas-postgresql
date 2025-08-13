@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: Debug",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/belindas-closet-nextjs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "env": {
+        "NODE_OPTIONS": "--inspect"
+      },
+      "console": "integratedTerminal",
+      "sourceMaps": true
+    },
+    {
+      "name": "Nest.js: Debug",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/belindas-closet-nestjs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:debug"],
+      "console": "integratedTerminal",
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Full Stack",
+      "configurations": ["Next.js: Debug", "Nest.js: Debug"]
+    }
+  ]
+}

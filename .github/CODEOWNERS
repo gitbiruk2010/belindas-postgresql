@@ -1,0 +1,25 @@
+# CODEOWNERS file for Belinda's Closet Fullstack
+
+# Each line is a file pattern followed by one or more owners.
+
+# These owners will be the default owners for everything in
+
+# the repo. Unless a later match takes precedence,
+
+# the Leadership team in the SeattleColleges organization will be
+
+# requested for review when someone opens a pull request.
+
+- @SeattleColleges/Leadership
+
+# Frontend specific code - owned by the frontend team
+
+/belindas-closet-nextjs/ @SeattleColleges/belindas-closet-frontend
+
+# Backend specific code - owned by the backend team
+
+/belindas-closet-nestjs/ @SeattleColleges/belindas-closet-backend
+
+# CI/CD workflows - owned by the DevOps team
+
+/.github/ @SeattleColleges/belindas-closet-devops

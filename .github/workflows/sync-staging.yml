@@ -1,0 +1,52 @@
+name: Sync Main to Staging
+run-name: Merge main into staging
+
+on:
+  push:
+    branches: ["main"]
+permissions:
+  contents: write
+  actions: write
+  checks: write
+  deployments: write
+  discussions: write
+  issues: write
+  pages: read
+  packages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all history so we can perform a merge
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if staging branch exists and create if needed
+        run: |
+          if git rev-parse --verify --quiet origin/staging; then
+            echo "Staging branch exists, checking it out"
+            git checkout staging
+          else
+            echo "Staging branch does not exist, creating it"
+            git checkout -b staging
+            git push -u origin staging
+          fi
+
+      - name: Merge main into staging
+        run: |
+          git checkout staging
+          git pull origin staging || true
+          git merge origin/main --no-ff -m "Merge main into staging"
+          git push origin staging

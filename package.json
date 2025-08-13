@@ -1,0 +1,29 @@
+{
+  "name": "belindas-closet-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "belindas-closet-nextjs",
+    "belindas-closet-nestjs"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run next:dev\" \"npm run nest:dev\"",
+    "next:dev": "cd belindas-closet-nextjs && npm run dev",
+    "nest:dev": "cd belindas-closet-nestjs && npm run start:dev",
+    "build:frontend": "cd belindas-closet-nextjs && npm run build",
+    "build:backend": "cd belindas-closet-nestjs && npm run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "test:frontend": "npm run test --workspace=belindas-closet-nextjs",
+    "test:backend": "npm run test --workspace=belindas-closet-nestjs",
+    "test": "npm run test:backend && npm run test:frontend",
+    "lint:frontend": "npm run lint --workspace=belindas-closet-nextjs",
+    "lint:backend": "npm run lint --workspace=belindas-closet-nestjs",
+    "lint": "npm run lint:backend && npm run lint:frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}

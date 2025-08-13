@@ -1,0 +1,58 @@
+# Root level node modules and build artifacts
+/node_modules
+/dist
+
+# Environment files
+.env*
+!.env.sample
+.env.local
+
+# Next.js
+/belindas-closet-nextjs/.next/
+/belindas-closet-nextjs/out/
+/belindas-closet-nextjs/build/
+
+# Nest.js
+/belindas-closet-nestjs/dist/
+/belindas-closet-nestjs/node_modules/
+
+# Testing and coverage
+/coverage
+/.nyc_output
+*/coverage
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+*.pem
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Other IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
