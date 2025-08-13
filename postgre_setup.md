@@ -294,4 +294,3 @@ If you encounter issues or want to learn more
 
 ---
 ```
-# Testing ci-cd-socket security
